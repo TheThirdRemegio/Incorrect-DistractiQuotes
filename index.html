@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incorrect DistractiQuotes</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Incorrect DistractiQuotes</h1>
+        <h2>version 0.1</h2>
+    </header>
+
+    <form action="#">
+        <fieldset>
+            <div>
+                <h3>Number of hosts:</h3>
+                <select name="characterCount" id="chrCnt" onload="count()" onchange="count()">
+                    <option value=1 selected>One</option>
+                    <option value=2>Two</option>
+                    <option value=3>Three</option>
+                </select>
+            </div>
+            <div>
+                <h3>Names of hosts:</h3>
+                <input type="text" name="characterNameA" id="chrNameA" placeholder="Bob">
+                <input type="text" name="characterNameB" id="chrNameB" placeholder="Mark" disabled="">
+                <input type="text" name="characterNameC" id="chrNameC" placeholder="Wade" disabled="">
+            </div>
+            <div>
+                <button type="button" onclick="generateQuote()">Generate</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <main>
+        <h3>Your quote:</h3>
+        <div id="generatedQuote">
+
+        </div>
+    </main>
+
+    <footer>
+        <p>Thank you to <a href="https://incorrect-quotes-generator.neocities.org/" target="_blank">ScatterPatter</a> for inspriring this monster (along with this code!)</p>
+    </footer>
+
+    <script defer="true">
+        function count() {
+            let chrNameA = document.getElementById("chrNameA");
+            let chrNameB = document.getElementById("chrNameB");
+            let chrNameC = document.getElementById("chrNameC");
+            let value = document.getElementById("chrCnt").value;
+            if (value == 1) {
+                chrNameA.disabled = false;
+                chrNameB.disabled = true;
+                chrNameC.disabled = true;
+            } else if (value == 2) {
+                chrNameA.disabled = false;
+                chrNameB.disabled = false;
+                chrNameC.disabled = true;
+            } else {
+                chrNameA.disabled = false;
+                chrNameB.disabled = false;
+                chrNameC.disabled = false;
+            }
+        }
+
+        const quotesForOne = [
+            
+        ];
+
+        quotesForTwo = [
+
+        ];
+
+        const quotesForThree = [
+            "{C}: Did I say \"ways to remove unwanted hair\"? Today's episode is \"ways to add WANTED hair\".<br />{B}: Can we get, like, add OR remove—or transplant—or just shift around—<br />{C}: Y'know what, ways to HAIR! Sure.<br />{A}: Ways to change the amount of hair on places on you!<br />{C}: Whatever you want to do with hair, we will talk about it today.<br />{B}: ...Yeah, but why? Why would you want to remove hair?<br />{B}: Hair is beautiful~ *twinkly-shimmery sounds*<br />{C}: ... Well, maybe you have a severe hair-phobia, and you just really wanna [BLEEEEEEEP], so you give 'em a heads up. They gotta get rid of that stuff...<br />{B}:<br />{A}:<br />{C}:<br />{C}: OR! OTHER REASONS! MAYBE YOU'RE A SWIMMER?"
+        ];
+
+        const allQuotes = [quotesForOne, quotesForTwo, quotesForThree];
+        
+        function generateQuote() {
+            let chrNameA = document.getElementById("chrNameA").value;
+            let chrNameB = document.getElementById("chrNameB").value;
+            let chrNameC = document.getElementById("chrNameC").value;
+            let value = document.getElementById("chrCnt").value;
+            const selectedQuotes = allQuotes[value - 1]; // For a value of "1", selects the 0th index.
+            const randomQuote = Math.floor(Math.random() * selectedQuotes.length);
+            let response = selectedQuotes[randomQuote];
+
+            response = response.replace(/{A}/g, chrNameA);
+            if (chrNameB) response = response.replace(/{B}/g, chrNameB);
+            if (chrNameC) response = response.replace(/{C}/g, chrNameC);
+
+            document.getElementById("generatedQuote").innerHTML = response;
+        };
+
+        function shuffleNames() {
+
+        }
+    </script>
+</body>
+</html>
