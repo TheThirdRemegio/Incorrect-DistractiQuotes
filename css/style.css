@@ -1,23 +1,109 @@
+@charset "UTF-8";
+:root {
+  font-size: 10px;
+}
+
 body {
+  background: linear-gradient(to bottom, #213a59 20%, #86c6b9);
+  color: #f2ecde;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.5rem;
   display: grid;
-  grid-template-areas: "header main" "settings main" "footer main";
-  grid-template-columns: 40% 60%;
+  grid-template-areas: "header" "settings" "main" "footer";
+  grid-template-rows: auto auto 1fr auto;
+  margin: 0;
+  min-height: 100svh;
+}
+@media only screen and (min-width: 768px) {
+  body {
+    grid-template-areas: "header main" "settings main" "footer main";
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: auto 1fr;
+  }
 }
 
 header {
   grid-area: header;
+  margin-left: 1rem;
+}
+header h1 {
+  margin-bottom: 0;
+}
+header h1 ~ h2 {
+  margin-top: 0;
 }
 
 form {
   grid-area: settings;
 }
-
-footer {
-  grid-area: footer;
+form fieldset {
+  border-block: 2px solid #f2ecde;
+  border-inline: none;
+  margin-left: 0;
+  padding: 0;
+}
+@media only screen and (min-width: 768px) {
+  form fieldset {
+    border: 2px solid #f2ecde;
+    border-left: none;
+    border-radius: 0 25px 25px 0;
+  }
+}
+form fieldset div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+form fieldset div h3 {
+  margin-block: 1rem;
+}
+form fieldset div input[type=text] {
+  text-indent: 0.5rem;
+  margin: 0.1rem 0;
+}
+form fieldset div button {
+  background-color: #86c6b9;
+  font-size: 1.5rem;
+  border: 2px solid #213a59;
+  border-radius: 15px;
+  padding: 0.25rem 0.5rem;
+}
+form fieldset div button:hover {
+  background-color: #52ae9b;
 }
 
 main {
   grid-area: main;
-  border: 1px solid black;
+  margin: 1rem;
+}
+main cite {
+  margin-left: 1rem;
+}
+main cite::before {
+  content: "—";
+}
+
+footer {
+  grid-area: footer;
+  background: linear-gradient(to bottom right, #213a59, #240f1e);
+  margin-top: auto;
+  padding: 1rem;
+}
+@media only screen and (min-width: 768px) {
+  footer {
+    border-top-right-radius: 30px;
+  }
+}
+footer p {
+  margin-block: 0;
+}
+footer a {
+  color: #86c6b9;
+}
+footer div#credits {
+  padding: 1rem;
+}
+footer div#myLinks {
+  display: flex;
+  flex-direction: row;
 }/*# sourceMappingURL=style.css.map */

@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="the_iii">
     <title>Incorrect DistractiQuotes</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
+<body onload="count()">
     <header>
         <h1>Incorrect DistractiQuotes</h1>
-        <h2>version 0.1</h2>
+        <h2>version 0.2</h2>
     </header>
 
     <form action="#">
         <fieldset>
             <div>
                 <h3>Number of hosts:</h3>
-                <select name="characterCount" id="chrCnt" onload="count()" onchange="count()">
+                <select name="characterCount" id="chrCnt" onchange="count()">
                     <option value=1 selected>One</option>
                     <option value=2>Two</option>
                     <option value=3>Three</option>
@@ -30,6 +31,8 @@
             </div>
             <div>
                 <button type="button" onclick="generateQuote()">Generate</button>
+                <button type="button" onclick="shuffleNames()" id="shuffleButton" disabled="">Shuffle names</button>
+                <button type="button" onclick="revealOriginal()" id="revealButton" disabled="">Reveal original quote</button>
             </div>
         </fieldset>
     </form>
@@ -42,63 +45,131 @@
     </main>
 
     <footer>
-        <p>Thank you to <a href="https://incorrect-quotes-generator.neocities.org/" target="_blank">ScatterPatter</a> for inspriring this monster (along with this code!)</p>
+        <div id="credits">
+            <p>Inspired by <a href="https://scatterpatter.tumblr.com/" target="_blank">ScatterPatter</a>'s <a href="https://incorrect-quotes-generator.neocities.org/" target="_blank">Incorrect Quotes Generator</a>!</p>
+        </div>
+        <div id="myLinks">
+            <ul>
+                <li><a href="https://github.com/TheThirdRemegio" target="_blank">Github</a></li>
+            </ul>
+        </div>
     </footer>
 
     <script defer="true">
+        let chrNameA = document.getElementById("chrNameA");
+        let chrNameB = document.getElementById("chrNameB");
+        let chrNameC = document.getElementById("chrNameC");
+        let shuffleButton = document.getElementById("shuffleButton");
+        let revealButton = document.getElementById("revealButton");
+        let revealed;
+
         function count() {
-            let chrNameA = document.getElementById("chrNameA");
-            let chrNameB = document.getElementById("chrNameB");
-            let chrNameC = document.getElementById("chrNameC");
             let value = document.getElementById("chrCnt").value;
-            if (value == 1) {
-                chrNameA.disabled = false;
-                chrNameB.disabled = true;
-                chrNameC.disabled = true;
-            } else if (value == 2) {
-                chrNameA.disabled = false;
-                chrNameB.disabled = false;
-                chrNameC.disabled = true;
-            } else {
-                chrNameA.disabled = false;
-                chrNameB.disabled = false;
-                chrNameC.disabled = false;
-            }
-        }
+            chrNameA.disabled = false;
+            chrNameB.disabled = value < 2;
+            chrNameC.disabled = value < 3;
+        };
 
         const quotesForOne = [
-            
+            "{A}: I do not care how they smell. If clowns are parachuting into my city, I am fucking OUT.<p><cite>Body Odor</cite>, Episode 2, Distractible</p>",
+            "{A}: DoorLung!<br />*squelch*<br />{A}: Only the choicest organs on DoorLung!<br />*PLOP*<p><cite>Hair</cite>, Episode 1, Distractible</p>",
         ];
-
-        quotesForTwo = [
-
+        const quotesForTwo = [
+            "{C}: Would you like me to go first, {B}?<br />{B}: You—I've got—well, hey, let's debate about who should go first. That's—that's really the key here—<br />{C}: Ah, debatable, our new podcast.<p><cite>Transportation</cite>, Episode 3, Distractible</p>",
+            "{B}: I'm already willing to accept that the earth is a living, breathing creature that was fucked into existence by Jupiter and Mars, and maybe Pluto—<br />{B}: I-I've somehow agreed to all of that. The teleportation thing? I'm just having a little bit of trouble understanding it. I just—<br />{B}: I'm just struggling a bit on that...<br />{C}:<br />{C}: Well, listen, I'm no scientist, but...<br />{C}: From my understanding of how things are gonna work ten thousand years from now, uh, I mean, I'm pretty sure we'll know—by then?<br />{B}:<br />{B}: Ten THOUSAND years! 10,000?!<br />{C}: Maybe it's ten years?<br />{B}: TEN?!<br />{B}: THAT'S A BIG RANGE!<p><cite>Transportation</cite>, Episode 3, Distractible</p>",
+            "{B}: Okay, but imagine, like, you get paid minimum wage, but PER ORGAN, right?<br />{B}: So y-you just take on, like, ten organs—you're making good money!<br />{B}: You're making REAL good money!<br />{A}: There's no way it would be that fair. Somehow—somehow, the rich people who were paying these organ-growing humans would find a way to make it a tipped profession.<p><cite>Hair</cite>, Episode 1, Distractible</p>"
         ];
-
         const quotesForThree = [
-            "{C}: Did I say \"ways to remove unwanted hair\"? Today's episode is \"ways to add WANTED hair\".<br />{B}: Can we get, like, add OR remove—or transplant—or just shift around—<br />{C}: Y'know what, ways to HAIR! Sure.<br />{A}: Ways to change the amount of hair on places on you!<br />{C}: Whatever you want to do with hair, we will talk about it today.<br />{B}: ...Yeah, but why? Why would you want to remove hair?<br />{B}: Hair is beautiful~ *twinkly-shimmery sounds*<br />{C}: ... Well, maybe you have a severe hair-phobia, and you just really wanna [BLEEEEEEEP], so you give 'em a heads up. They gotta get rid of that stuff...<br />{B}:<br />{A}:<br />{C}:<br />{C}: OR! OTHER REASONS! MAYBE YOU'RE A SWIMMER?"
+            "{C}: Did I say \"ways to remove unwanted hair\"? Today's episode is \"ways to add WANTED hair\"!<br />{B}: Can we get, like, add OR remove—or transplant—or just shift around—<br />{C}: Y'know what, ways to HAIR! Sure.<br />{A}: Ways to change the amount of hair on places on you! <br />{C}: Whatever you want to do with hair, we will talk about it today.<br />{B}: ...Yeah, but why? Why would you want to remove hair?<br />{B}: Hair is beautiful~ *twinkly-shimmery sounds*<br />{C}: ...Well, maybe you have a severe hair-phobia, and you just really wanna <b>[BLEEEEEEEP]</b>, so you give 'em a heads up. They gotta get rid of that stuff...<br />{B}:<br />{A}:<br />{C}:<br />{C}: OR<br />{C}: OTHER REASONS!!! MAYBE YOU'RE A SWIMMER?<p><cite>Hair</cite>, Episode 1, Distractible</p>",
+            "{B}: Okay, back up, back up, back up, back up...<br />{B}: The earth is a living, breathing <em>being</em> is what you're saying?<br />{C}: Yeah, why do you think volcanoes erupt? Earth's, like, \"UGHHHHH. Damn it, mom,\" y'know?<br />{B}: Who is earth's mom, wait, hold on—<br />{C}: Oh, uh, y'know, Mother... Jupiter, and Father—fuck you—uh, Mars?<br />{A}: How are you mad about this?! You—you—this is <em>your</em> story!<p><cite>Transportation</cite>, Episode 3, Distractible</p>",
         ];
-
         const allQuotes = [quotesForOne, quotesForTwo, quotesForThree];
-        
+
         function generateQuote() {
-            let chrNameA = document.getElementById("chrNameA").value;
-            let chrNameB = document.getElementById("chrNameB").value;
-            let chrNameC = document.getElementById("chrNameC").value;
+            let nameA = chrNameA.value || "Bob";
+            let nameB = chrNameB.value || "Mark";
+            let nameC = chrNameC.value || "Wade"; // The value following "||" is assigned in case of empty string.
             let value = document.getElementById("chrCnt").value;
-            const selectedQuotes = allQuotes[value - 1]; // For a value of "1", selects the 0th index.
+            const selectedQuotes = allQuotes[value - 1]; // For a value of "1", selects the 0th index or the quotesForOne array.
             const randomQuote = Math.floor(Math.random() * selectedQuotes.length);
             let response = selectedQuotes[randomQuote];
 
-            response = response.replace(/{A}/g, chrNameA);
-            if (chrNameB) response = response.replace(/{B}/g, chrNameB);
-            if (chrNameC) response = response.replace(/{C}/g, chrNameC);
+            response = response
+                .replace(/{A}/g, nameA)
+                .replace(/{B}/g, nameB)
+                .replace(/{C}/g, nameC);
 
             document.getElementById("generatedQuote").innerHTML = response;
+            shuffleButton.disabled = false;
+            revealButton.disabled = false;
+            revealed = false;
         };
-
+        
+        function shuffleArray(array) {
+            // Enter the Fisher-Yates shuffle algorithm...
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        };
         function shuffleNames() {
+            let initialNameA = chrNameA.value || "Bob";
+            let initialNameB = chrNameB.value || "Mark";
+            let initialNameC = chrNameC.value || "Wade";
+            let names = [initialNameA];
+            if (initialNameB) names.push(initialNameB);
+            if (initialNameC) names.push(initialNameC);
+            // initialNames are redeclared after push into names array.
+            
+            let shuffledNames = shuffleArray(names);
+            let newNameA = shuffledNames[0];
+            let newNameB = shuffledNames[1] || "";
+            let newNameC = shuffledNames[2] || "";
 
-        }
+                if (revealed == true) {
+                    initialNameA = "Bob";
+                    initialNameB = "Mark";
+                    initialNameC = "Wade";
+                }
+            
+            let initialResponse = document.getElementById("generatedQuote").innerHTML;
+            let newResponse = initialResponse
+            .replace(new RegExp(initialNameA, "g"), "{TEMP_A}")
+            .replace(new RegExp(initialNameB, "g"), "{TEMP_B}")
+            .replace(new RegExp(initialNameC, "g"), "{TEMP_C}")
+            .replace(/{TEMP_A}/g, newNameA)
+            .replace(/{TEMP_B}/g, newNameB)
+            .replace(/{TEMP_C}/g, newNameC);
+            /* TEMP_LTRs were added to prevent cases where initialNameA = "Bartholomew" is replaced by newNameA = "Carissa", but initialNameB = "Carissa" is replaced by "Cassius", meaning both newNameA and initialNameB are replaced by "Cassius", leading to some very lonely prompts... */
+            
+            chrNameA.value = newNameA;
+            chrNameB.value = newNameB;
+            chrNameC.value = newNameC;
+            document.getElementById("generatedQuote").innerHTML = newResponse;
+            revealButton.disabled = false;
+            revealed = false;
+        };
+        
+        function revealOriginal() {
+            let nameA = chrNameA.value || "Bob";
+            let nameB = chrNameB.value || "Mark";
+            let nameC = chrNameC.value || "Wade";
+
+            let response = document.getElementById("generatedQuote").innerHTML;
+            let originalQuote = response
+                .replace(new RegExp(nameA, "g"), "{TEMP_A}")
+                .replace(new RegExp(nameB, "g"), "{TEMP_B}")
+                .replace(new RegExp(nameC, "g"), "{TEMP_C}")
+                .replace(/{TEMP_A}/g, "Bob")
+                .replace(/{TEMP_B}/g, "Mark")
+                .replace(/{TEMP_C}/g, "Wade");
+            /* Like in shuffleNames(), TEMP_LTRs were used to prevent early name replacements in the case of prompts not involving the hosts but involving the names Bob, Mark, and Wade. */
+            document.getElementById("generatedQuote").innerHTML = originalQuote;
+
+            revealButton.disabled = true;
+            revealed = true;
+            };
     </script>
 </body>
 </html>
