@@ -2,6 +2,7 @@
 $black: #240f1e;
 $dark-blue: #213a59;
 $blue: #86c6b9;
+$grey: #d3dcda;
 $white: #f2ecde;
 
 // OTHER
@@ -85,6 +86,15 @@ form {
 main {
     grid-area: main;
     margin: 1rem;
+
+    span.fx,
+    span.desc {
+        font-style: italic;
+        color: $grey;
+    }
+    span.UPPERCASE {
+        text-transform: uppercase;
+    }
     
     cite {
         margin-left: 1rem; // Because text-indent doesn't work on <cite> tags, for some reason...

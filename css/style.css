@@ -76,6 +76,14 @@ main {
   grid-area: main;
   margin: 1rem;
 }
+main span.fx,
+main span.desc {
+  font-style: italic;
+  color: #d3dcda;
+}
+main span.UPPERCASE {
+  text-transform: uppercase;
+}
 main cite {
   margin-left: 1rem;
 }
