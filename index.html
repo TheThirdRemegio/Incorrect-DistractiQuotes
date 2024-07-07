@@ -10,30 +10,44 @@
 <body onload="count()">
     <header>
         <h1>Incorrect DistractiQuotes</h1>
-        <h2>version 0.3</h2>
+        <h2>version 0.4</h2>
     </header>
 
     <form action="#">
         <fieldset>
+            <legend>
+                <label for="characterCount">Number of hosts:</label>
+            </legend>
+            <select id="characterCount" onchange="count()">
+                <option value="Any" selected>Any</option>
+                <option value=0>One</option>
+                <option value=1>Two</option>
+                <option value=2>Three</option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>Name of hosts:</legend>
+            <label for="characterNameA">Host A</label>
+            <input type="text" id="characterNameA" placeholder="Bob" aria-label="Bob">
+            <label for="characterNameB">Host B</label>
+            <input type="text" id="characterNameB" placeholder="Mark" aria-label="Mark" disabled="">
+            <label for="characterNameC">Host C</label>
+            <input type="text" id="characterNameC" placeholder="Wade" aria-label="Wade" disabled="">
+        </fieldset>
+        <fieldset>
+            <legend>Generator Settings:</legend>
+            <button type="button" onclick="generateQuote()">Generate</button>
+            <button type="button" onclick="shuffleNames()" id="shuffleButton" disabled="">Shuffle names</button>
+            <button type="button" onclick="revealOriginal()" id="revealButton" disabled="">Reveal original quote</button>
+            <button type="button" onclick="clearNames()" id="clearButton">Clear names</button>
             <div>
-                <h3>Number of hosts:</h3>
-                <select name="characterCount" id="chrCnt" onchange="count()">
-                    <option value=0 selected>One</option>
-                    <option value=1>Two</option>
-                    <option value=2>Three</option>
-                </select>
-            </div>
-            <div>
-                <h3>Names of hosts:</h3>
-                <input type="text" name="characterNameA" id="chrNameA" placeholder="Bob">
-                <input type="text" name="characterNameB" id="chrNameB" placeholder="Mark" disabled="">
-                <input type="text" name="characterNameC" id="chrNameC" placeholder="Wade" disabled="">
-            </div>
-            <div>
-                <button type="button" onclick="generateQuote()">Generate</button>
-                <button type="button" onclick="shuffleNames()" id="shuffleButton" disabled="">Shuffle names</button>
-                <button type="button" onclick="revealOriginal()" id="revealButton" disabled="">Reveal original quote</button>
-                <button type="button" onclick="clearNames()" id="clearButton">Clear</button>
+                <label for="nsfwToggle">Allow NSFW quotes?</label>
+                <input type="checkbox" name="nsfwToggle" id="nsfwToggle">
+                <p>
+                    The NSFW toggle allows in quotes<br />
+                    of a raunchier, lewder nature.<br />
+                    Profanity is allowed by default, however.
+                </p>
             </div>
         </fieldset>
     </form>
@@ -57,43 +71,62 @@
     </footer>
 
     <script defer="true">
-        let inputA = document.getElementById("chrNameA");
-        let inputB = document.getElementById("chrNameB");
-        let inputC = document.getElementById("chrNameC");
-        let selectedQuote;
-        let shuffleButton = document.getElementById("shuffleButton");
-        let revealButton = document.getElementById("revealButton");
-        let clearButton = document.getElementById("clearButton");
-        let generatedQuote = document.getElementById("generatedQuote");
-        let revealed;
-        
-        function count() {
-            let chrCount = document.getElementById("chrCnt").value; // Do not globalize: updates onchange.
-            inputA.disabled = false;
-            inputB.disabled = chrCount < 1;
-            inputC.disabled = chrCount < 2;
+        let inputs = {
+            A: document.getElementById("characterNameA"),
+            B: document.getElementById("characterNameB"),
+            C: document.getElementById("characterNameC"),
         };
-
-        const quotesForOne = [
+        let buttons = {
+            shuffle: document.getElementById("shuffleButton"),
+            reveal: document.getElementById("revealButton"),
+            clear: document.getElementById("clearButton"),
+        };
+        let quotesForOne;
+        let quotesForTwo;
+        let quotesForThree;
+        let generatedQuote = document.getElementById("generatedQuote");
+        let selectedQuote;
+        let initialQuoteIndex;
+        let revealed = false;
+        
+        const quotesForOneSFW = [
             { quote: "{A}: DoorLung!<br /><span class='fx'>*squelch*</span><br />{A}: Only the choicest organs on DoorLung!<br /><span class='fx'>*plop*</span>", quoter: ["Bob"], source: "<cite>Hair</cite>, Episode 1, Distractible" },
             { quote: "{A}: I do not care how they smell. If clowns are parachuting into my city, I am fucking OUT.", quoter: ["Bob"], source: "<cite>Body Odor</cite>, Episode 2, Distractible" },
         ];
-        const quotesForTwo = [
+        const quotesForOneNSFW = [
+            
+            ];
+        const quotesForTwoSFW = [
             { quote: "{B}: Okay, but imagine, like, you get paid minimum wage, but PER ORGAN, right?<br />{B}: So y-you just take on, like, ten organs—you're making good money.<br />{B}: You're making REAL good money!<br />{A}: There's no way it would be that fair. Somehow—somehow, the rich people who were paying these organ-growing humans would find a way to make it a tipped profession.", quoter: ["Bob", "Mark"], source: "<cite>Hair</cite>, Episode 1, Distractible" },
             { quote: "{B}: Would you like me to go first, {A}?<br />{A}: You—I've got—well, hey, let's debate about who should go first. That's—that's really the key here—<br />{B}: Ah, <em>debatable</em>, our new podcast.", quoter: ["Mark", "Wade"], source: "<cite>Transportation</cite>, Episode 3, Distractible" },
             { quote: "{A}: I'm already willing to accept that the earth is a living, breathing creature that was fucked into existence by Jupiter and Mars, and maybe Pluto—<br />{A}: I-I've somehow agreed to all of that.<br />{A}: The teleportation thing? I'm just having a little bit of trouble understanding it. I just—I'm just struggling a bit on that...<br />{B}:<br />{B}: Well, listen, I'm no scientist, but...<br />{B}: From my understanding of how things are gonna work ten thousand years from now, uh, I mean, I'm pretty sure we'll know—by then?<br />{A}:<br />{A}: Ten <em>thousand</em> years! 10,000?!<br />{B}: Maybe it's ten years?<br />{A}: TEN?!<br />{A}: THAT'S A BIG RANGE!", quoter: ["Mark", "Wade"], source: "<cite>Transportation</cite>, Episode 3, Distractible" },
-            { quote: "{A}: Oh, I got questions. You want questions? I got questions.<br />{B}: By all means.<br />{A}: Well, well, well. If we're giving out bonus points...<br />{A}: How long...is both your legs together<br />{A}: and<br />{A}: why do I need to know that?<br />{B}:<br />{A}: You don't get to know the answer to that one. That's a question for <em>me</em>.", quoter: ["Bob", "Wade"], source: "<cite>Camping</cite>, Episode 4, Distractible"},
+            { quote: "{A}: Oh, I got questions. You want questions? I got questions.<br />{B}: By all means.<br />{A}: Well, well, well. If we're giving out bonus points...<br />{A}: How long...is both your legs together<br />{A}: and<br />{A}: why do I need to know that?<br />{B}:<br />{A}: You don't get to know the answer to that one. That's a question for <em>me</em>.", quoter: ["Bob", "Wade"], source: "<cite>Camping</cite>, Episode 4, Distractible" },
             { quote: "<span class='fx'>*Inspirational music starts playing*</span><br />{A}: I don't know if I've said this to you guys, but I've always thought that <strong>inspiration</strong> is, like, the most valuable thing you can give to people. Like, above almost everything else in terms of humanity. The reason, like, landing people on the moon—not even just Americans—but, like, landing people on the moon was so important—like, from a cost perspective, from a practicality perspective—yeah, sure, there's science and stuff—but, like, for everyone's day-to-day life, it doesn't really affect it. But the <em>moment</em> the <em>footage</em> of people seeing that <em>someone landed on the moon</em>—that changed an entire generation's perspective of what was even possible! Like, the—<br />{B}: I thought that was fake! <span class='fx'>*laughing*</span><br />{A}: —don't get this started, man, I'll fuckin'—I'll destroy you! I'LL DESTROY YOUUU—", quoter: ["Mark", "Wade"], source: "<cite>Fake Tech</cite>, Episode 5, Distractible" },
+            { quote: "{A}: Careful what you lick in a hotel room, that's all I'm sayin'.<br />{B}: You know me—I lick every corner of the room, I have to.<br />{A}: Yeah.<br/>{B}: As soon as I walk into a room.<br/>{A}: 's how it feels like home. It's how you adjust.", quoter: ["Bob", "Mark"], source: "<cite>Bob's Fridge</cite>, Episode 7, Distractible" },
+            { quote: "{B}: Can you imagine if 9-1-1 had an automated system like that?<br />{B}: <span class='phone'>\"For class-one emergencies, press 1!\ For class-two emergencies, press 2!\"</span><br />{B}: <span class='phone'>\"Stay on the line if this is a major emergency!\"</span><br />{A}: <span class='phone'>\"What's your problem?\"</span> I'M BLEEEEDING!<br />{A}: <span class='phone'>\"Bo-bo-bo-boop! Connecting you to...\"</span><br/>{B}: <span class='phone'>\"For bleeding, try calling 9-1-1, and your extension will be 6-7-9-4-2!\"</span>", quoter: ["Mark", "Wade"], source: "<cite>Bob's Fridge</cite>, Episode 7, Distractible"},
         ];
-        const quotesForThree = [
-            { quote: "{C}: Did I say \"ways to remove unwanted hair\"? Today's episode is \"ways to add WANTED hair\"!<br />{B}: Can we get, like, add OR remove—or transplant—or just shift around—<br />{C}: Y'know what, ways to HAIR! Sure.<br />{A}: Ways to change the amount of hair on places on you! <br />{C}: Whatever you want to do with hair, we will talk about it today.<br />{B}: ...Yeah, but why? Why would you want to remove hair?<br />{B}: Hair is beautiful~ *twinkly-shimmery sounds*<br />{C}: ...Well, maybe you have a severe hair-phobia, and you just really wanna <b>[BLEEEEEEEP]</b>, so you give 'em a heads up. They gotta get rid of that stuff...<br />{B}:<br />{A}:<br />{C}:<br />{C}: OR<br />{C}: OTHER REASONS!!! MAYBE YOU'RE A SWIMMER?", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Hair</cite>, Episode 1, Distractible"},
-            { quote: "{B}: Okay, back up, back up, back up, back up...<br />{B}: The earth is a living, breathing <em>being</em> is what you're saying?<br />{C}: Yeah, why do you think volcanoes erupt? Earth's, like, \"UGHHHHH. Damn it, mom,\" y'know?<br />{B}: Who is earth's mom—wait, hold on!<br />{C}: Oh, uh, y'know, Mother... Jupiter, and Father—<br />{C}: fuck you<br />{C}: —uh, Mars?<br />{A}: <i>Wha</i>—How are you mad about this?! You—you—this is <em>your</em> story!", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Transportation</cite>, Episode 3, Distractible"},
-            { quote: "{B}: {C}, I got—I got one more question for you.<br />{C}: Oh, boy.<br />{B}: <span class='fx'>*ominously*</span> Do you wanna go camping with me?<br />{C}: I cautiously am saying yes...<br />{B}: <span class='fx'>*ominously*</span> Excellent... Okay, good...<br />{A}: <span class='fx'>*whispering*</span> That feels like a mistake.<br />{C}: I think so, too, but curiosity gets the best of me sometimes.<br />{A}: What are you? A cat?<br />{C}: AWW, GEE-WHIZ, <span class='UPPERCASE'>{C}</span>, what have you got yerself into this time...<br />{A}:<br />{B}:<br />{C}:<br />{A}:<br />{B}:<br />{C}:<br />{C}: Um.<br />{A}:<br />{B}:<br />{C}: UH, SO—", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Camping</cite>, Episode 4, Distractible"},
-            // { quote: "<span class='desc'>{A} and {C} are trying to score points in the story title category: \"Seasons Don't Fear The Reaper, They Fear The Titties\" versus \"Milford Chainsaw Massacre\"</span><br />{A}: Look, maybe my story is garbage, maybe all I have is the title. Don't concede yet, {C}.<br />{C}: I got a good story! I'm just sayin' the title—I just, y'know, I-I changed one word in the title—from another—I guess you took—<br />{C}: You used a song lyric, I stole another movie. We—We both suck. But yours is—you suck better.<br />{A}: I suck reaaal good.<br />{B}: ...God, you guys are really trying to win this one!", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Supernatural</cite>, Episode 6, Distractible" },
-            { quote: "{B}: I feel like sometimes I wake up in an alternate reality and it's like everything is exactly the same except my hair is slightly curlier<br />{B}: and then, y'know, there's prolly some other things that I'm not noticing, but—<br />{A}: Dude, I get that but with my teeth.<br />{C}: Your teeth get curly?<br />{A}: You ever get that? You ever get curly teeth?<br />{B}: NO?? WHAT???<br />{A}: Aw, me either.", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Saving You Money!</cite>, Episode 245, Distractible"},
+        const quotesForTwoNSFW = [
+            
         ];
-        const allQuotes = [quotesForOne, quotesForTwo, quotesForThree];
+        const quotesForThreeSFW = [
+            { quote: "{C}: Did I say \"ways to remove unwanted hair\"? Today's episode is \"ways to add WANTED hair\"!<br />{B}: Can we get, like, add OR remove—or transplant—or just shift around—<br />{C}: Y'know what, ways to HAIR! Sure.<br />{A}: Ways to change the amount of hair on places on you! <br />{C}: Whatever you want to do with hair, we will talk about it today.<br />{B}: ...Yeah, but why? Why would you want to remove hair?<br />{B}: Hair is beautiful~ *twinkly-shimmery sounds*<br />{C}: ...Well, maybe you have a severe hair-phobia, and you just really wanna <b>[BLEEEEEEEP]</b>, so you give 'em a heads up. They gotta get rid of that stuff...<br />{B}:<br />{A}:<br />{C}:<br />{C}: OR<br />{C}: OTHER REASONS!!! MAYBE YOU'RE A SWIMMER?", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Hair</cite>, Episode 1, Distractible" },
+            { quote: "{B}: Okay, back up, back up, back up, back up...<br />{B}: The earth is a living, breathing <em>being</em> is what you're saying?<br />{C}: Yeah, why do you think volcanoes erupt? Earth's, like, \"UGHHHHH. Damn it, mom,\" y'know?<br />{B}: Who is earth's mom—wait, hold on!<br />{C}: Oh, uh, y'know, Mother... Jupiter, and Father—<br />{C}: fuck you<br />{C}: —uh, Mars?<br />{A}: <i>Wha</i>—How are you mad about this?! You—you—this is <em>your</em> story!", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Transportation</cite>, Episode 3, Distractible" },
+            { quote: "{B}: {C}, I got—I got one more question for you.<br />{C}: Oh, boy.<br />{B}: <span class='fx'>*ominously*</span> Do you wanna go camping with me?<br />{C}: I cautiously am saying yes...<br />{B}: <span class='fx'>*ominously*</span> Excellent... Okay, good...<br />{A}: <span class='fx'>*whispering*</span> That feels like a mistake.<br />{C}: I think so, too, but curiosity gets the best of me sometimes.<br />{A}: What are you? A cat?<br />{C}: AWW, GEE-WHIZ, <span class='UPPERCASE'>{C}</span>, what have you got yerself into this time...<br />{A}:<br />{B}:<br />{C}:<br />{A}:<br />{B}:<br />{C}:<br />{C}: Um.<br />{A}:<br />{B}:<br />{C}: UH, SO—", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Camping</cite>, Episode 4, Distractible" },
+            { quote: "{B}: I feel like sometimes I wake up in an alternate reality and it's like everything is exactly the same except my hair is slightly curlier<br />{B}: and then, y'know, there's prolly some other things that I'm not noticing, but—<br />{A}: Dude, I get that but with my teeth.<br />{C}: Your teeth get curly?<br />{A}: You ever get that? You ever get curly teeth?<br />{B}: NO?? WHAT???<br />{A}: Aw, me either.", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Saving You Money!</cite>, Episode 245, Distractible" },
+        ];
+        const quotesForThreeNSFW = [
+            { quote: "<span class='desc'>{A} and {C} are trying to score points in the story title category: \"Seasons Don't Fear The Reaper, They Fear The Titties\" versus \"Milford Chainsaw Massacre\"</span><br />{A}: Look, maybe my story is garbage, maybe all I have is the title. Don't concede yet, {C}.<br />{C}: I got a good story! I'm just sayin' the title—I just, y'know, I-I changed one word in the title—from another—I guess you took—<br />{C}: You used a song lyric, I stole another movie. We—We both suck. But yours is—you suck better.<br />{A}: I suck reaaal good.<br />{B}: ...God, you guys are really trying to win this one!", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Supernatural</cite>, Episode 6, Distractible" },
+            { quote: "{A}: It's just an old fridge. It's not like—I'm not saying anything about the person who lived here before us, but, the water that came out of it, the ice, the food...it just had a stank!<br />{A}: Clearly didn't fix it. The baking soda and the—thing didnt fix it.<br />{A}: So we got a new one.<br />{A}: And like, that's pretty exciting. New fridge is exciting. You know no one has stored their dog's semen in it before.<br />{B}: <span class='fx'>*sputtering*</span><br />{C}: That is a very specific...qualification.<br />{A}: I'm NOT saying that I know I've lived in a house with a fridge where there was dog semen stored in it.<br />{A}: I'm just saying, if you live in a rental especially, <em>you don't know what was in that fridge before</em>.", quoter: ["Bob", "Mark", "Wade"], source: "<cite>Bob's Fridge</cite>, Episode 7, Distractible" },
+        ];
         
+        function count() {
+        let chrCount = document.getElementById("characterCount").value; // Do not globalize: updates onchange.
+        inputs.A.disabled = false;
+        inputs.B.disabled = chrCount < 1;
+            inputs.C.disabled = chrCount < 2;
+            // For string values like "Any", automatically false against operators like < and >.
+        };
+
         function shuffleArray(array) {
             // Enter the Fisher-Yates shuffle algorithm...
             for (let i = array.length - 1; i > 0; i--) {
@@ -105,18 +138,43 @@
 
         function generateQuote() {
             // INIT
-            let chrCount = document.getElementById("chrCnt").value; // Do not globalize: updates onchange.
-            let nameA = inputA.value || "Bob";
-            let nameB = inputB.value || "Mark";
-            let nameC = inputC.value || "Wade";
-            let selectedQuotesArray = allQuotes[chrCount];
-            let randomQuoteIndex = Math.floor(Math.random() * selectedQuotesArray.length);
-            selectedQuote = selectedQuotesArray[randomQuoteIndex];
+            let chrCount = document.getElementById("characterCount").value; // Do not globalize: updates onchange.
+            let nsfwToggle = document.getElementById("nsfwToggle").checked; // Same as above.
+            let names = {
+                A: inputs.A.value || "Bob",
+                B: inputs.B.value || "Mark",
+                C: inputs.C.value || "Wade",
+            }
+            if (nsfwToggle == true) {
+                quotesForOne = quotesForOneSFW.concat(quotesForOneNSFW);
+                quotesForTwo = quotesForTwoSFW.concat(quotesForTwoNSFW);
+                quotesForThree = quotesForThreeSFW.concat(quotesForThreeNSFW);
+            } else {
+                quotesForOne = quotesForOneSFW;
+                quotesForTwo = quotesForTwoSFW;
+                quotesForThree = quotesForThreeSFW;
+            };
+            let allQuotes;
+            let selectedQuotesArray;
+            if (chrCount != "Any") {
+                allQuotes = [quotesForOne, quotesForTwo, quotesForThree];
+                selectedQuotesArray = allQuotes[chrCount];
+            } else {
+                allQuotes = quotesForOne.concat(quotesForTwo).concat(quotesForThree);
+                selectedQuotesArray = allQuotes;
+            }
 
-            // SHUFFLER
-            let shuffledNames = [nameA];
-            if (nameB && inputB.disabled == false) { shuffledNames.push(nameB); }
-            if (nameC && inputC.disabled == false) { shuffledNames.push(nameC); }
+            // QUOTE SELECTION
+            let newQuoteIndex;
+            do { newQuoteIndex = Math.floor(Math.random() * selectedQuotesArray.length); }
+            while (newQuoteIndex == initialQuoteIndex); // Use do-while loop to execute quote selection at least once, regardless of redundancy.
+            initialQuoteIndex = newQuoteIndex; // Replaces null with result of while loop.
+            selectedQuote = selectedQuotesArray[newQuoteIndex];
+
+            // NAMES SHUFFLER
+            let shuffledNames = [names.A];
+            if (names.B && inputs.B.disabled == false) { shuffledNames.push(names.B); }
+            if (names.C && inputs.C.disabled == false) { shuffledNames.push(names.C); }
             shuffleArray(shuffledNames); // Shuffle the names inside the new shuffledNames array, preserving the base input values through shuffles.
 
             // TREATMENT
@@ -129,24 +187,22 @@
             // OUTPUT
             generatedQuote.innerHTML = quote;
             generatedQuote.appendChild(source);
-            if (inputA.value && inputB.value && inputC.value) { shuffleButton.disabled = false; };
-            revealButton.disabled = false;
+            if (inputs.A.value && inputs.B.value && inputs.C.value) { shuffleButton.disabled = false; };
+            buttons.reveal.disabled = false;
             revealed = false;
         };
         
         function shuffleNames() {
             // INIT
-            let initialNameA = inputA.value;
-            let initialNameB = inputB.value;
-            let initialNameC = inputC.value;
-            let initialNames = [initialNameA, initialNameB, initialNameC];
+            let initialNames = [initialNameA = inputs.A.value, initialNameB = inputs.B.value, initialNameC = inputs.C.value];
             let placeholders = ["{TEMP_A}", "{TEMP_B}", "{TEMP_C}"];
 
             // SHUFFLER // Unlike generateQuote()'s SHUFFLER, the local shuffledNames array allows for shuffling of all input values, whether the inputs are enabled or not.
             let shuffledNames = [initialNameA];
             if (initialNameB) { shuffledNames.push(initialNameB); };
             if (initialNameC) { shuffledNames.push(initialNameC); };
-            shuffleArray(shuffledNames);
+            do { shuffleArray(shuffledNames); }
+            while (shuffledNames == initialNames); // Do-while loop shuffles repeatedly until the new, shuffled names are different from the previous.
             
             // TREATMENT
             let newQuote = generatedQuote.innerHTML;
@@ -164,7 +220,7 @@
             
             // OUTPUT
             generatedQuote.innerHTML = newQuote;
-            revealButton.disabled = false;
+            buttons.reveal.disabled = false;
             revealed = false;
         };
         
@@ -183,15 +239,15 @@
             // OUTPUT
             generatedQuote.innerHTML = originalQuote;
             generatedQuote.appendChild(source);
-            shuffleButton.disabled = true;
-            revealButton.disabled = true;
+            buttons.shuffle.disabled = true;
+            buttons.reveal.disabled = true;
             revealed = true;
         };
 
         function clearNames() {
-            inputA.value = "";
-            inputB.value = "";
-            inputC.value = "";
+            inputs.A.value = "";
+            inputs.B.value = "";
+            inputs.C.value = "";
         };
     </script>
 </body>

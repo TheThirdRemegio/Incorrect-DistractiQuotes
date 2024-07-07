@@ -4,7 +4,7 @@
 }
 
 body {
-  background: linear-gradient(to bottom, #213a59 20%, #86c6b9);
+  background: linear-gradient(165deg, #100f24 10%, #213a59 65%, #86c6b9 150%);
   color: #f2ecde;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1.5rem;
@@ -35,51 +35,78 @@ header h1 ~ h2 {
 
 form {
   grid-area: settings;
-}
-form fieldset {
   border-block: 2px solid #f2ecde;
   border-inline: none;
-  margin-left: 0;
-  padding: 0;
 }
 @media only screen and (min-width: 768px) {
-  form fieldset {
+  form {
     border: 2px solid #f2ecde;
     border-left: none;
     border-radius: 0 25px 25px 0;
   }
 }
-form fieldset div {
+form fieldset {
+  border: none;
   display: flex;
   flex-direction: column;
   margin: 1rem;
+  padding: 0;
 }
-form fieldset div h3 {
+form fieldset legend {
+  font-size: 1.75rem;
+  font-weight: 700;
   margin-block: 1rem;
 }
-form fieldset div input[type=text] {
+form fieldset > label {
+  font-style: italic;
+  text-indent: 2rem;
+}
+form fieldset input[type=text] {
   text-indent: 0.5rem;
   margin: 0.1rem 0;
 }
-form fieldset div button {
+form fieldset button {
   background-color: #86c6b9;
   font-size: 1.5rem;
   border: 2px solid #213a59;
   border-radius: 15px;
   padding: 0.25rem 0.5rem;
 }
-form fieldset div button:hover {
+form fieldset button:hover {
   background-color: #52ae9b;
+}
+form fieldset button:hover:disabled {
+  background-color: #63b6a5;
+  opacity: 0.9;
+}
+form fieldset button:disabled {
+  color: #100f24;
+  opacity: 0.8;
+}
+form fieldset div {
+  padding-block: 1rem;
+}
+form fieldset div > label {
+  font-weight: 700;
+}
+form fieldset div p {
+  margin-block: 0;
+  font-style: italic;
 }
 
 main {
   grid-area: main;
   margin: 1rem;
+  min-height: 20svh;
 }
 main span.fx,
 main span.desc {
   font-style: italic;
   color: #d3dcda;
+}
+main span.phone {
+  font-style: italic;
+  color: #d6d6dd;
 }
 main span.UPPERCASE {
   text-transform: uppercase;
@@ -93,9 +120,15 @@ main cite::before {
 
 footer {
   grid-area: footer;
-  background: linear-gradient(to bottom right, #213a59, #240f1e);
+  background: linear-gradient(to bottom right, #213a59, #100f24);
+  border-top: 2px solid #f2ecde;
   margin-top: auto;
   padding: 1rem;
+}
+@media only screen and (min-width: 768px) {
+  footer {
+    border-right: 2px solid #f2ecde;
+  }
 }
 @media only screen and (min-width: 768px) {
   footer {
