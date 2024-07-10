@@ -1,5 +1,5 @@
 # Incorrect DistractiQuotes
-Cycle through out-of-context quotes and conversations in this unofficial Distractible "Incorrect Quotes" generator!
+Cycle through out-of-context quotes and conversations in this unofficial [Distractible "Incorrect Quotes" generator](https://thethirdremegio.github.io/Incorrect-DistractiQuotes/)!
 
 ## Content Warning
 The NSFW toggle allows in quotes of a raunchier, lewder, nature. Profanity is allowed by default, however.
