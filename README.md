@@ -2,7 +2,7 @@
 Cycle through out-of-context quotes and conversations in this unofficial Distractible "Incorrect Quotes" generator!
 
 ## Content Warning
-The NSFW toggle allows in quotes of a raunchier, lewder, nature. Profanity is allowed by default, however.
+The NSFW toggle allows in quotes of a raunchier, lewder nature. Profanity is allowed by default, however.
 Example jokes involve breasts, genitalia, and certain bodily fluids.
 This generator does not, in any way, reflect the views of the Distractible hosts (particularly those defined in the Distractible podcast episode "What Distractible Stands For"). :3
 

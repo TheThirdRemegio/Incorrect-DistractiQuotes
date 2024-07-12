@@ -2,8 +2,8 @@
 $black: #100f24;
 $dark-blue: #213a59;
 $blue: #86c6b9;
-$light-blue: #d3dcda;
-$grey: #d6d6dd;
+$light-blue: #c1f2e7;
+$grey: #e0e0ea;
 $white: #f2ecde;
 
 // OTHER
@@ -29,9 +29,9 @@ body {
         grid-template-areas:
             "header main"
             "settings main"
-            "footer main";
+            "footer footer";
         grid-template-rows: auto auto 1fr;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: calc($breakpoint * 17/32) auto;
     }
     margin: 0;
     min-height: 100svh;
@@ -105,15 +105,25 @@ form {
 
 main {
     grid-area: main;
-    margin: 1rem;
+    margin: 1rem 2rem;
     min-height: 20svh;
 
+    span.thought {
+        font-style: italic;
+        opacity: .9;
+    }
+    span.letter {
+        font-style: italic;
+        font-family: cursive;
+        line-height: 2;
+    }
     span.fx,
-    span.desc {
+    span.desc,
+    span.parenthetical {
         font-style: italic;
         color: $light-blue;
     }
-    span.phone {
+    span.electronic {
         font-style: italic;
         color: $grey;
     }
@@ -134,18 +144,35 @@ footer {
     grid-area: footer;
     background: linear-gradient(to bottom right, $dark-blue, $black);
     border-top: 2px solid $white;
-    @media only screen and (min-width: $breakpoint) { border-right: 2px solid $white; };
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-top: auto;
     padding: 1rem;
-    @media only screen and (min-width: $breakpoint) {
-        border-top-right-radius: 30px;
-    }
     
     p { margin-block: 0; }
     a { color: $blue; }
-    div#credits { padding: 1rem; }
-    div#myLinks {
-        display: flex;
-        flex-direction: row;
+    div#credits {
+        div#myLinks {
+            display: flex;
+            flex-direction: row;
+
+            ul { margin-block: .5rem; }
+        }
+    }
+    div#numberOfQuotes {
+        table {
+            border-collapse: collapse;
+            text-align: left;
+            
+            caption {
+                font-style: italic;
+                margin-bottom: .5rem;
+            }
+            th, td { padding: 0 2rem; }
+            tbody th { text-align: right; }
+        }
     }
 }

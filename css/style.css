@@ -16,9 +16,9 @@ body {
 }
 @media only screen and (min-width: 768px) {
   body {
-    grid-template-areas: "header main" "settings main" "footer main";
+    grid-template-areas: "header main" "settings main" "footer footer";
     grid-template-rows: auto auto 1fr;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 408px auto;
   }
 }
 
@@ -96,17 +96,27 @@ form fieldset div p {
 
 main {
   grid-area: main;
-  margin: 1rem;
+  margin: 1rem 2rem;
   min-height: 20svh;
 }
-main span.fx,
-main span.desc {
+main span.thought {
   font-style: italic;
-  color: #d3dcda;
+  opacity: 0.9;
 }
-main span.phone {
+main span.letter {
   font-style: italic;
-  color: #d6d6dd;
+  font-family: cursive;
+  line-height: 2;
+}
+main span.fx,
+main span.desc,
+main span.parenthetical {
+  font-style: italic;
+  color: #c1f2e7;
+}
+main span.electronic {
+  font-style: italic;
+  color: #e0e0ea;
 }
 main span.UPPERCASE {
   text-transform: uppercase;
@@ -122,18 +132,12 @@ footer {
   grid-area: footer;
   background: linear-gradient(to bottom right, #213a59, #100f24);
   border-top: 2px solid #f2ecde;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin-top: auto;
   padding: 1rem;
-}
-@media only screen and (min-width: 768px) {
-  footer {
-    border-right: 2px solid #f2ecde;
-  }
-}
-@media only screen and (min-width: 768px) {
-  footer {
-    border-top-right-radius: 30px;
-  }
 }
 footer p {
   margin-block: 0;
@@ -141,10 +145,24 @@ footer p {
 footer a {
   color: #86c6b9;
 }
-footer div#credits {
-  padding: 1rem;
-}
-footer div#myLinks {
+footer div#credits div#myLinks {
   display: flex;
   flex-direction: row;
+}
+footer div#credits div#myLinks ul {
+  margin-block: 0.5rem;
+}
+footer div#numberOfQuotes table {
+  border-collapse: collapse;
+  text-align: left;
+}
+footer div#numberOfQuotes table caption {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+footer div#numberOfQuotes table th, footer div#numberOfQuotes table td {
+  padding: 0 2rem;
+}
+footer div#numberOfQuotes table tbody th {
+  text-align: right;
 }/*# sourceMappingURL=style.css.map */
