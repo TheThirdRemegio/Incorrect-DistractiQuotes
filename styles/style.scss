@@ -2,13 +2,22 @@
 $black: #100f24;
 $dark-blue: #213a59;
 $blue: #86c6b9;
-$light-blue: #c1f2e7;
-$grey: #e0e0ea;
+$dark-purple: #d87bef;
+$temp: rgba(160, 98, 183, 0.5);
+$purple: #ecbdff;
 $white: #f2ecde;
 
 // OTHER
 $breakpoint: 768px;
 
+// MIXINS
+@mixin justified-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@import url("./span-styles.css");
 :root {
     font-size: 10px;
 }
@@ -30,7 +39,7 @@ body {
             "header main"
             "settings main"
             "footer footer";
-        grid-template-rows: auto auto 1fr;
+        grid-template-rows: 1fr auto 1fr;
         grid-template-columns: calc($breakpoint * 17/32) auto;
     }
     margin: 0;
@@ -107,30 +116,12 @@ main {
     grid-area: main;
     margin: 1rem 2rem;
     min-height: 20svh;
-
-    span.thought {
-        font-style: italic;
-        opacity: .9;
-    }
-    span.letter {
-        font-style: italic;
-        font-family: cursive;
-        line-height: 2;
-    }
-    span.fx,
-    span.desc,
-    span.parenthetical {
-        font-style: italic;
-        color: $light-blue;
-    }
-    span.electronic {
-        font-style: italic;
-        color: $grey;
-    }
-    span.UPPERCASE {
-        text-transform: uppercase;
-    }
     
+    a {
+        color: $purple !important;
+        &:visited { color: $dark-purple !important; }
+        > * { color: inherit !important; }
+    }
     cite {
         margin-left: 1rem; // Because text-indent doesn't work on <cite> tags, for some reason...
         
@@ -145,10 +136,8 @@ footer {
     background: linear-gradient(to bottom right, $dark-blue, $black);
     border-top: 2px solid $white;
 
-    display: flex;
-    flex-direction: row;
+    @include justified-row;
     justify-content: space-between;
-    align-items: center;
     margin-top: auto;
     padding: 1rem;
     
@@ -156,10 +145,21 @@ footer {
     a { color: $blue; }
     div#credits {
         div#myLinks {
-            display: flex;
-            flex-direction: row;
+            ul {
+                margin-block: .5rem;
+                padding-inline: 0;
+                list-style: none;
 
-            ul { margin-block: .5rem; }
+                a {
+                    @include justified-row;
+
+                    svg {
+                        margin-inline: .5rem;
+                        
+                        path { fill: $white; }
+                    }
+                }
+            }
         }
     }
     div#numberOfQuotes {

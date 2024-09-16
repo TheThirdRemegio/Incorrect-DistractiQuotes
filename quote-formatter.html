@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes Formatter</title>
+    <style>
+        * { box-sizing: border-box; }
+        html { font-size: 10px; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 1.5rem;
+            margin: 0;
+            padding-block: 5vh;
+            padding-inline: 1rem;
+        }
+        @media only screen and (min-width: 768px) {
+            body { padding-inline: 15vw; }
+        }
+        a { color: #ecbdff !important; }
+        a:visited { color: #d87bef !important; }
+        a > * { color: inherit !important; }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 0;
+            padding: 1rem;
+        }
+        fieldset:nth-child(2) > div {
+            background: linear-gradient(165deg, #100f24 10%, #213a59 65%, #86c6b9 150%);
+            color: #f2ecde;
+            font-family: inherit;
+            min-height: 20rem;
+            padding: 1rem;
+        }
+        cite {
+            margin-left: 1rem;
+        }
+        cite::before {
+            content: "—";
+        }
+        #guide {
+            background: linear-gradient(165deg, #100f24 10%, #213a59 65%, #86c6b9 150%);
+            color: #f2ecde;
+            margin-top: 2rem;
+        }
+        #guide table {
+            border: 2px groove #f0f0f0;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #guide table th {
+            font-weight: bold;
+            padding: .5rem 1rem;
+        }
+        #guide table td {
+            border: 1px solid #f2ecde;
+            padding: .5rem 1rem;
+        }
+        #guide table pre { margin-block: 0; }
+    </style>
+    <link rel="stylesheet" href="./styles/span-styles.css">
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Input:</legend>
+            <textarea id="inputText" rows="10" placeholder="W: thought(Fuck your dreams. Fuck your nightmares. I'm gonna beat you.)&#10;B: ()(*howling with laughter*)&#10;&#10;src(F**k You Energy, Episode 54)"></textarea>
+            <button id="inputSubmit" type="button">Format</button>
+        </fieldset>
+        <fieldset>
+            <legend>Output:</legend>
+            <div id="outputText"></div>
+            <button id="copyOutput" type="button">Copy</button>
+            <button id="clearOutput" type="button">Clear</button>
+        </fieldset>
+    </form>
+    <section id="guide">
+        <table>
+            <thead>
+                <tr>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>Display</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span>thought(Lorem ipsum)</span>
+                        <br />
+                        <span>elec(Lorem ipsum)</span>
+                    </td>    
+                    <td>
+                        <code>&lt;span class='thought'&gt;Lorem ipsum&lt;/span&gt;</code>
+                        <br />
+                        <code>&lt;span class='electronic'&gt;Lorem ipsum&lt;/span&gt;</code>
+                    </td>
+                    <td>
+                        <span class='thought electronic'>Lorem ipsum</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>letter(Lorem ipsum)</span>
+                        <br />
+                        <span>magical(Lorem ipsum)</span>
+                    </td>
+                    <td>
+                        <code>&lt;span class='letter'&gt;Lorem ipsum&lt;/span&gt;</code>
+                        <br />
+                        <code>&lt;span class='magical'&gt;Lorem ipsum&lt;/span&gt;</code>
+                    </td>
+                    <td>
+                        <span class='letter magical'>Lorem ipsum</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>fx(Lorem ipsum)</span>
+                        <br />
+                        <span>desc(Lorem ipsum)</span>
+                        <br />
+                        <span>()(Lorem ipsum)</span>
+                    </td>
+                    <td>
+                        <code>&lt;span class='fx'&gt;Lorem ipsum&lt;/span&gt;</code>
+                        <br />
+                        <code>&lt;span class='desc'&gt;Lorem ipsum&lt;/span&gt;</code>
+                        <br />
+                        <code>&lt;span class='parenthetical'&gt;Lorem ipsum&lt;/span&gt;</code>
+                    </td>
+                    <td>
+                        <span class='fx desc parenthetical'>Lorem ipsum</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>horror(Lorem ipsum)</span>
+                        <br />
+                        <span>shaky(Lorem ipsum)</span>
+                    </td>
+                    <td>
+                        <code>&lt;span class='horror'&gt;Lorem ipsum&lt;/span&gt;</code>
+                        <br />
+                        <code>&lt;span class='shaky'&gt;Lorem ipsum&lt;/span&gt;</code>
+                    </td>
+                    <td><span class='horror shaky'>Lorem ipsum</span></td>
+                </tr>
+                <tr>
+                    <td><span>UPPERCASE(Lorem ipsum)</span></td>
+                    <td><code>&lt;span class='UPPERCASE'&gt;Lorem ipsum&lt;/span&gt;</code></td>
+                    <td><span class='UPPERCASE'>Lorem ipsum</span></td>
+                </tr>
+                <tr>
+                    <td><span>small(Lorem ipsum)</span></td>
+                    <td><code>&lt;span class='small'&gt;Lorem ipsum&lt;/span&gt;</code></td>
+                    <td><span class='small'>Lorem ipsum</span></td>
+                </tr>
+                <tr>
+                    <td><span>link(URL, Lorem ipsum)</span></td>
+                    <td><code>&lt;a href='URL' target='_blank'&gt;Lorem ipsum&lt;/a&gt;</code></td>
+                    <td><a href='URL' target='_blank'>Lorem ipsum</a></td>
+                </tr>
+            </tbody>
+    </section>
+    <script>
+    // INIT
+        const textAreas = {
+            input: document.getElementById('inputText'),
+            output: document.getElementById('outputText'),
+        };
+        const buttons = {
+            submit: document.getElementById('inputSubmit'),
+            copy: document.getElementById('copyOutput'),
+            clearInput: document.getElementById('clearInput'),
+            clearOutput: document.getElementById('clearOutput'),
+        };
+        buttons.copy.disabled = true; // Initially disabled due to empty output.
+        let exportHosts = [];
+        let exportSource;
+        let exportQuote; // The exportTrio serve as the variables to be CONCATENATED in the Copy button's output. Values are assigned in whichHostsArePresent() and extract().
+        
+    // CLEAR TEXT AREA OUTPUT
+        buttons.clearOutput.addEventListener('click', function() {
+            textAreas.output.innerHTML = '';
+            buttons.copy.disabled = true; // Disabled due to empty output.
+        });
+    
+    // COPY OUTPUT TEXT
+        buttons.copy.addEventListener('click', function() {
+            let output = `{ source: "${exportSource}", quote: "${exportQuote}", quoter: [${exportHosts}] },`;
+            navigator.clipboard.writeText(output);
+        });
+
+    // FORMAT
+        buttons.submit.addEventListener('click', function() {
+            let inputText = textAreas.input.value;
+            let formattedText = lineBreaker(inputText);         // Replaces '/n' with '<br />' || line breaks.
+            formattedText = placeholderReplace(formattedText);  // Replaces '{B}', '{M}', and '{W}' with '{A}', '{B}', and '{C}'.
+            formattedText = formatSource(formattedText);        // Replaces 'src(Episode Name, Number)' with '<cite>Episode Name</cite>, Episode Number, Distractible'.
+            formattedText = formatEffects(formattedText);      // Replaces 'fx(text)' and '()(text)' with '<span class='fx'>text</span>' and '<span class='parenthetical'>text</span>'.
+            textAreas.output.innerHTML = formattedText;
+            
+            formatCopyText(formattedText);                      // Formats the source, quote, and quoterDo not set formattedText to this.
+            buttons.copy.disabled = false;
+        });
+
+        function lineBreaker(input) {
+            let output = input
+                .replace(/\n/g, '<br />');
+            return output;
+        };
+        
+        function placeholderReplace(input) {
+            const placeholders = ['{A}', '{B}', '{C}'];
+            let hostsPresent = whichHostsArePresent(input); // Expected output if all hosts present: [ "{B}", "{M}", "{W}" ].
+
+            let output = input;
+            for (let i = 0; i < hostsPresent.length; i++) {
+                output = output.replace(new RegExp(hostsPresent[i], 'g'), placeholders[i]);
+            }; // whichHostsArePresent automatically sorts the hosts alphabetically, leading to clean, ordered replacement by the placeholders!
+            return output;
+        };
+        function whichHostsArePresent(input) {
+            const names = ['{B}', '{M}', '{W}'];
+            let hostsPresent = names.filter(name => input.includes(name)); // Adds name ('{B}', '{M}', '{W}') to hostsPresent array if present.
+            exportHosts = hostsPresent.join(', ')
+                .replace(/{B}/g, '"Bob"')
+                .replace(/{M}/g, '"Mark"')
+                .replace(/{W}/g, '"Wade"'); // Not for graphical formatting but rather the copy portion... Expected output: `"Bob", "Mark", "Wade"` 
+            return hostsPresent;
+        };
+
+        function formatSource(input) {
+        // exportSource
+            let output = input
+                .replace(/src\(([^[]+), ([^)]+)\)/, '<cite>$1</cite>, Episode $2, Distractible');
+                /*  BREAKDOWN:
+                    /                       // Forward slashes encase the literal pattern, where literal is the character || sequence of characters TO MATCH...exactly as they appear, in order.
+                        src                 // Matches the literal string 'src'.
+                            \(              // '\' escapes the parentheses...
+                                (           // Parentheses (not escaped) denote a CAPTURE REGION, i.e. saved and recalled later using $i!
+                                    [       // Square brackets denote a CHARACTER CLASS, which matches the characters within...
+                                        ^]  // The character class would ordinarily match the ']' character, but the caret '^'' negates it!
+                                    ]
+                                    +       // Greedy, repetition operator... The preceding capture now extends until '[' is found. The character class '[^[]' would only capture a single character, as long as it's not a '['.
+                                )
+                                ,           // Do not mistake the comma + space ', ' for a separator. It matches the literal string ', '.
+                                (
+                                    [
+                                        ^)  // Similarly to one above, this character class captures anything but ')'...
+                                    ]
+                                    +       // ...and does so greedily, until ')' is met.
+                                )
+                            \)
+                    /
+                */
+            return output;
+        };
+
+        function formatEffects(input) {
+            let output = input;
+            output = output
+                .replace(/thought\(([^)]+)\)/g, "<span class='thought'>$1</span>")
+                .replace(/letter\(([^)]+)\)/g, "<span class='letter'>$1</span>")
+                .replace(/magical\(([^)]+)\)/g, "<span class='magical'>$1</span>")
+                .replace(/fx\(([^)]+)\)/g, "<span class='fx'>*$1*</span>")
+                .replace(/desc\(([^)]+)\)/g, "<span class='desc'>$1</span>")
+                .replace(/elec\(([^)]+)\)/g, "<span class='electronic'>$1</span>")
+                .replace(/horror\(([^)]+)\)/g, "<span class='horror'>$1</span>")
+                .replace(/shaky\(([^)]+)\)/g, "<span class='shaky'>$1</span>")
+                .replace(/UPPERCASE\(([^)]+)\)/g, "<span class='UPPERCASE'>$1</span>")
+                .replace(/small\(([^)]+)\)/g, "<span class='small'>$1</span>")
+                .replace(/link\(([^,]+), (.*?)\)/g, "<a href='$1' target='_blank'>$2</a>")
+                .replace(/\(\)\(([^)]+)\)/g, "<span class='parenthetical'>*$1*</span>"); // Parenthetical span substitution is last to prevent other () from being replaced...
+            return output;
+        };
+
+        function formatCopyText(input) {
+            input = input.replace(/"/g, '\\"'); // Replaces '"' with '/"' in output text to treat '"' as literal || escape '"'...
+            let match = input.match(/^(.*?)<cite>(.*?)<\/cite>, (.*?), Distractible(.*)/s); // Console reveals that match has five values... After puzzling it out, it appears .match initially captures in a greedy fashion (index 0 includes '<cite>', for instance), but $0 isn't being used anyway, so nothing to fret over.
+                /*
+                    / starts the literal string capture,
+                    ^ anchors regex to the string's start,
+                        . === anything, meaning any character or sequence of characters,
+                        * === at least zero instances,
+                        .* === everything,
+                        ? === non-greedy capture, meaning the capture ends before the next literal, so
+                    (.*?) captures everything until <cite> (not including '<cite>'),        // FIRST CAPTURE || $1
+                    '<cite>' === literal string,
+                    (.*?) captures everything until </cite> (not including '</cite>'),      // $2
+                    '</cite>
+                    ', '
+                    (.*?) captures everything until next ', ',          // $3
+                    ', '
+                    'Distractible'
+                    (.*) captures everything until the end.             // $4
+                    /s allows for multi-line matching, e.g. '\n'!
+                */
+            if (match) {
+                exportSource = `<cite>${match[2]}</cite>, ${match[3]}, Distractible`; // match[2] refers to the episode name, match[3] refers to the episode number ('Episode' is already included in formatSource())...
+                exportQuote = `${match[1]}${match[4]}`; // match[1] refers to everything except the content between "<cite>" and "Distractible".
+            } else { exportSource = ""; exportQuote = input; }; // If no match... then, just set exportQuote to the input, formatted text. At least it's still editable in the .json file...
+            
+            if (exportQuote.endsWith('<br /><br />')) { exportQuote = exportQuote.slice(0, -12); }; // Trims trailing line breaks before source.
+        };
+    </script>
+</body>
+</html>

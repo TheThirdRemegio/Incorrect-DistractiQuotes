@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("./span-styles.css");
 :root {
   font-size: 10px;
 }
@@ -17,7 +18,7 @@ body {
 @media only screen and (min-width: 768px) {
   body {
     grid-template-areas: "header main" "settings main" "footer footer";
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: 1fr auto 1fr;
     grid-template-columns: 408px auto;
   }
 }
@@ -99,27 +100,14 @@ main {
   margin: 1rem 2rem;
   min-height: 20svh;
 }
-main span.thought {
-  font-style: italic;
-  opacity: 0.9;
+main a {
+  color: #ecbdff !important;
 }
-main span.letter {
-  font-style: italic;
-  font-family: cursive;
-  line-height: 2;
+main a:visited {
+  color: #d87bef !important;
 }
-main span.fx,
-main span.desc,
-main span.parenthetical {
-  font-style: italic;
-  color: #c1f2e7;
-}
-main span.electronic {
-  font-style: italic;
-  color: #e0e0ea;
-}
-main span.UPPERCASE {
-  text-transform: uppercase;
+main a > * {
+  color: inherit !important;
 }
 main cite {
   margin-left: 1rem;
@@ -134,8 +122,8 @@ footer {
   border-top: 2px solid #f2ecde;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-top: auto;
   padding: 1rem;
 }
@@ -145,12 +133,21 @@ footer p {
 footer a {
   color: #86c6b9;
 }
-footer div#credits div#myLinks {
-  display: flex;
-  flex-direction: row;
-}
 footer div#credits div#myLinks ul {
   margin-block: 0.5rem;
+  padding-inline: 0;
+  list-style: none;
+}
+footer div#credits div#myLinks ul a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+footer div#credits div#myLinks ul a svg {
+  margin-inline: 0.5rem;
+}
+footer div#credits div#myLinks ul a svg path {
+  fill: #f2ecde;
 }
 footer div#numberOfQuotes table {
   border-collapse: collapse;

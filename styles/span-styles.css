@@ -1,0 +1,32 @@
+:root {
+    --text-blue: #c1f2e7;
+    --text-grey: #e0e0ea;
+}
+span.thought,
+span.electronic {
+    font-style: italic;
+    color: var(--text-grey);
+}
+span.letter,
+span.magical {
+    font-style: italic;
+    font-family: cursive;
+}
+span.letter { line-height: 2; }
+span.magical { line-height: 1; }
+span.fx,
+span.desc,
+span.parenthetical {
+    font-style: italic;
+    color: var(--text-blue);
+}
+span.horror,
+span.shaky {
+    font-family: chalkduster, papyrus, 'ink free', trattatelo, 'comic sans';
+}
+span.UPPERCASE {
+    text-transform: uppercase;
+}
+span.small {
+    font-size: smaller;
+}

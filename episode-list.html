@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distractible Episodes</title>
+    <style>
+        :root {
+            font-size: 10px;
+            --black: #333;
+            --quoted: rgb(144, 187, 144);
+            --unquoted: rgb(241, 156, 156);
+            --revisit: rgb(255, 255, 147);
+        }
+
+        body {
+            font-size: 1.5rem;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 1rem;
+            padding: 0;
+        }
+        table {
+            border-collapse: collapse;
+            table { width: 100%; };
+        }
+            tr {
+                border: 1px solid var(--black);
+                list-style: none;
+                height: 20px;
+            }
+            tbody tr { background-color: var(--unquoted); }
+            tr[data-status="revisit"] { background-color: var(--revisit) !important; }
+                td { padding: .25rem .5rem; }
+                tbody tr td { text-align: center; }
+                tbody tr td:nth-child(4) { text-align: right; width: 50%; }
+
+        ul { padding-left: 0; }
+        @media only screen and (min-width: 768px) {
+            table { width: max(calc(768px * calc(2/3)), 80%); }
+            ul {
+                margin-block: 0;
+                position: fixed;
+                top: 2rem;
+                right: 2rem;
+            }
+        }
+        li { list-style: none; }
+        li::before {
+            content: '';
+            border: 1px solid var(--black);
+            height: 1.5rem;
+            width: 1.5rem;
+            display: inline-block;
+            margin-right: .5rem;
+        }
+        li:nth-child(1)::before { background-color: var(--quoted); }
+        li:nth-child(2)::before { background-color: var(--unquoted); }
+        li:nth-child(3)::before { background-color: var(--revisit); }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>Quoted</li>
+        <li>Unquoted</li>
+        <li>To revisit</li>
+        <p id="totalNumberOfQuotes">Total: </p>
+    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Number of quotes</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-status="">
+                <td>Hair</td>
+                <td><b>2021; 33 episodes</b></td>
+            </tr>
+            <tr data-status="">
+                <td>Body Odor</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Transportation</td>
+                <td>(sonic cum joke now that NSFW filter is done b)</td>
+            </tr>
+            <tr data-status="">
+                <td>Camping</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Fake Tech</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Supernatural</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bob's Fridge</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Conventions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Hold My Beer</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Synchronicity</td>
+                <td>~48min. Greg's hivemind sex want to include but either not too funny or too context-needy, I don't remember :(</td>
+            </tr>
+            <tr data-status="">
+                <td>Perfect Crime</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Kids Are Stupid</td>
+                <td>too context-needy</td>
+            </tr>
+            <tr data-status="">
+                <td>Happy Funerals</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Future</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>How To Make A Best Friend</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Oh Sh*t Moments</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>How Dare You</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Dreams & Nightmares</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>King Of Meat</td>
+                <td>jokes are either inside jokes or need too much context,
+                    also lots of jokes are dependent on the particular host's personaity, so</td>
+            </tr>
+            <tr data-status="">
+                <td>Life Plan</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Lies From Parents</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Dating Advice</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Dangerous Coasters</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I Was Wrong...</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Fears & Fetishes</td>
+                <td>Fun and insightful, but not very quotable imo<br />#2: Quoted now, but previous point still stands, I think</td>
+            </tr>
+            <tr data-status="">
+                <td>Old Men</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We Are All Going To Die</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Young & Stupid</td>
+                <td>At ~8:40, idea for "extrapolated" quotes where bits or quotes by the guys are transformed into linear, smooth quotes instead of retellings of retellings? Source can be like "Young & Stupid (Extrapolated), Episode 28, Distractible"</td>
+            </tr>
+            <tr data-status="">
+                <td>That One Guy</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Never Give Up</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Humanity Is Bad</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Christmas Gone Wrong</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Failed Resolutions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Perfect Meal</td>
+                <td><b>2022; 52 episodes</b></td>
+            </tr>
+            <tr data-status="">
+                <td>Cryptids Are Scary</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Bad Habits</td>
+                <td>Some good bits but not the most quotable. Did lose focus a lot while coding formatter.html, so this episode is officially for review</td>
+            </tr>
+            <tr data-status="">
+                <td>Beware The Candy Uncle...</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Funniest Joke In The World</td>
+                <td>Entertaining, but not very quotable.</td>
+            </tr>
+            <tr data-status="">
+                <td>Waste of Money</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Distractible Threesome</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Worst Piece of Sh*t Episode Ever</td>
+                <td>Lots of context-specific jokes. This episode's full of height & bald jokes, so if the settings end up being implemented, revisit.</td>
+            </tr>
+            <tr data-status="">
+                <td>Criminally Subliminal</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Hill I Will Die On</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Pet Stories</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Disappointing Our Parents</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Superstitions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Self Confidence</td>
+                <td>Serious episode.</td>
+            </tr>
+            <tr data-status="">
+                <td>We Die On Your Hills</td>
+                <td>Entertaining, but not too quotable. Mostly rants, long discussions, or tangents.</td>
+            </tr>
+            <tr data-status="">
+                <td>Serotonin</td>
+                <td>(4: ALSO possibly a latest episode when I started listening? I remember a notification for this episode...)</td>
+            </tr>
+            <tr data-status="">
+                <td>Oh No, The Future UwU</td>
+                <td>Serious episode.</td>
+            </tr>
+            <tr data-status="">
+                <td>Aliens Among Us</td>
+                <td>(2: possibly latest episode when I joined?)</td>
+            </tr>
+            <tr data-status="">
+                <td>So Bad it's Good</td>
+                <td>(1: latest episode when I joined?)</td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Wade's Secret Words</td>
+                <td>(3: definitely _a_ latest episode when I joined)</td>
+            </tr>
+            <tr data-status="">
+                <td>F*ck You Energy</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We Got Screwed</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Bobs & The Bees</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Who's The Worst</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Don't Laugh</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Atrocities of Summer</td>
+                <td>Unexpected goldmine for quotes!</td>
+            </tr>
+            <tr data-status="">
+                <td>Anything Goes</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Worst World Records</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Conspiracy Theories</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Before We Die</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Boys Bet It All</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Fast Food Tier List</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Distractible Gameshow</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bob Doesn't Know</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Go With Your Gut</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Musical Memories</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Solving The Unsolvable</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Broken News</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Video Game Tier List</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Naked</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Bait Debate</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Big or Small</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Change</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Candy Tier List</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Devil's Advocate</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Would You Rather</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Thank You</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I Tried So Far And Got So Far But In The End It Didn't Even Matter</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>One Paw In The Grave</td>
+                <td>Serious episode.</td>
+            </tr>
+            <tr data-status="">
+                <td>We're NOT Getting Old</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Don't Say Christmas</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Perfect Day</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Good Bad Habits</td>
+                <td><b>2023; 98 episodes</b></td>
+            </tr>
+            <tr data-status="">
+                <td>You Member?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Ick</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bob's Baby</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade's Silly Choices</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Friendship Test: Mark Edition</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Profession Confessions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Masks We Wear</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Distractible: The Musical</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Emmy Losing Episode</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Am I The A*****e?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Good Advice?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Shoe Game</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Fairest Episode Ever</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Just Relax</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Self Actualization</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wonders of Our World</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Video Game Tier List (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Would You Rather (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Our Firsts</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade's Questions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Million Dollars, But...</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Who's Better?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Riddles & Rhymes</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Ohio Stuff</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bread</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Three Peens In A Pod</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>The Wheel of Fate</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Will You Press The Button?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Hypocrisy?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Burls [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Artificial Intelligence</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>What I Want</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bob Wins This Episode</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I'm Better</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Listener Q&A</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I Wasn't Ready</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Rage</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Weird</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Weird (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Weird (Part 3)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>YouTubers For YouTubers</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>It's Mark's Birthday</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Whimsical Headlines</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I Quit (Part 1)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>You Ever Feel A Feel?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Microplastics Solved Forever</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I Quit (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Mac Vs. PC</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Reading</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Distractible Tier List</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Aliens Among Us (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Dicebreakers!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Subreddit Enemy No. 1</td>
+                <td>Started reading auto-transcript...</td>
+            </tr>
+            <tr data-status="">
+                <td>Feels Like Home</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Why Animal There?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Doing It Wrong</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Philoso-NO</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Five Nights at Freddy's Tier List</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Markiplier and Friends</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Five Nights at Freddy's Tier List (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade's Food Questions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Distractible Escape Room</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Whose Podcast Is It Anyway?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Mark Hates The Moon</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bob's Confusing Words</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Front Page News</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Distractible Riddle Realm</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade, Bob, and Friend</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Illegal Advice</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>These Are Gaffes?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I Don't Know What I Expected</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Worth It</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Boo?!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Tricks or Tropes?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>King Of Horror Hill</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Pre Of Life</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>No Thank You</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Curious Conspiracy Corner</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>News Everyone!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bullsh*t</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Powerwash Pals: Wade [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Voice Me, Dammit!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Boy, I Miss That</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Powerwash Pals: Bob [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Self Diagnosis, Best Diagnosis</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Appeasing Our A.I. Overlords</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Actually Nothing</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Return Of The Gingerdead Man</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Powerwash Pals: Tyler [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>You're Dumb, We're Smart, Here's Why</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Live, Laugh, Lose</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bits That Didn't Fits [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>"Not" "Financial" "Advice"</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Evil League of Evil</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>That's Stupid, Let's Do It</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Confusing Christmas Words</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We Hate Christmas</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>New Year, New Brain</td>
+                <td><b>2024</b></td>
+            </tr>
+            <tr data-status="">
+                <td>We Forgot To Stretch</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>What Distractible Stands For</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Lens Chats with Mark: Part One [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Gifts, Holes, and Powers</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>How Do You Know?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Lens Chats with Mark: Part Two [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wadey's Wittle Philosophy Hour</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade Wins</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We're Getting Older</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Breaking News (Part One) [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Chess 3</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Squid Game Too</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Breaking News (Part Two) [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>I CAN FLY!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Dr. Bob's Real Boy Test</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Breaking News (Part Three) [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade Wins (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wade Games</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Council of Distractible</td>
+                <td>The Council is born!</td>
+            </tr>
+            <tr data-status="">
+                <td>You'll Never Believe What Happened</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We're Filthy Rich! [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>This Is Our Roman Empire</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>It's Okay, We're Engineers</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Mark Is A Visionary [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Games Are Getting Older</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Midfacemaxxing [Bonus Episode]</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We Are The Main Character</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Tear Down These Balls</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Pants</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>How To Milk Your Dinosaur</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Power</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Old Is Awesome</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>No Topic Left Beef</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Wrong Answers Only</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Do You Fear Death-uh?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Best Episode Of Distractible Anyone Has Ever Seen Or Heard Ever</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Cake or AI?</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Cake Or AI Too</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Chugging Hot Tub Water</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Uplifting Children's Stories</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Cursed Man</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Bad Or Worse</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>At Least 20 Questions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>20 More Questions (At Least)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Animal Noises</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>There Is No Excuse</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>It's Over, It's Done</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>1000 Hour Energy</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>World Wade Supremacy</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Naming 100 Women</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>My Body Betrayed Me</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Two Truths And A Lie</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Shotgun Roulette</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Inaugural Boat Episode</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We Should Buy A Movie Theater!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Room Where It Happened</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>We Might Have Started The Fire</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>20 Easy Questions</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>It's Mark's Birthday (Part 2)</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Best Of Times, Worst Of Times</td>
+                <td></td>
+            </tr>
+            <tr data-status="revisit">
+                <td>Saving You Money!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>The Dumb of Humanity</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Sorry For My Singing</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>Red 40, Set Hut!</td>
+                <td></td>
+            </tr>
+            <tr data-status="">
+                <td>A Special Message For Our Listeners</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="./quotes.js"></script>
+    <script>
+        let totalNumberOfQuotes = 0;
+        const allQuotes = quotes.one.SFW.concat(quotes.one.NSFW, quotes.two.SFW, quotes.two.NSFW, quotes.three.SFW, quotes.three.NSFW);
+        const episodes = Array.from(document.querySelectorAll("tbody tr"));
+        episodes.forEach((episode, i) => {
+            // COUNT NUMBER OF QUOTES PER EPISODE
+            let numberOfQuotesValue = allQuotes.filter(
+                quote => quote.source.includes( // (2) Returns if local episode name matches quote.source.
+                    "<cite>"
+                    +
+                    episode.querySelector("td:nth-child(1)").textContent // (1) Gets the local episode name.
+                    +
+                    "</cite>"
+                )).length; // (3) Returns number of quotes as value.
+            let episodeName = episode.querySelector("td");
+            let episodeNumberValue = (i + 1).toString();
+
+            // AUTOMATIC STYLING
+            if (numberOfQuotesValue > 0) {
+                episode.style.backgroundColor = 'var(--quoted)';
+            }
+
+            let episodeNumber = document.createElement("td");
+            episodeNumber.textContent = episodeNumberValue + ".";
+            let numberOfQuotes = document.createElement("td");
+            numberOfQuotes.textContent = numberOfQuotesValue;
+
+            episodeName.before(episodeNumber);
+            episodeName.after(numberOfQuotes);
+
+            // Add to totalNumberOfQuotes count.
+            totalNumberOfQuotes = totalNumberOfQuotes + numberOfQuotesValue;
+        });
+
+        // Appends totalNumberOfQuotes count to document paragraph.
+        document.getElementById("totalNumberOfQuotes").append(totalNumberOfQuotes.toString());
+    </script>
+</body>
+</html>
