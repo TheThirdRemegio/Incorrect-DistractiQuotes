@@ -250,7 +250,7 @@
                                     [       // Square brackets denote a CHARACTER CLASS, which matches the characters within...
                                         ^]  // The character class would ordinarily match the ']' character, but the caret '^'' negates it!
                                     ]
-                                    +       // Greedy, repetition operator... The preceding capture now extends until '[' is found. The character class '[^[]' would only capture a single character, as long as it's not a '['.
+                                    +       // Greedy, repetition operator... The preceding capture now extends until '[' is found. The character class '[^[]' would ordinarily only capture a single character, as long as it's not a '['.
                                 )
                                 ,           // Do not mistake the comma + space ', ' for a separator. It matches the literal string ', '.
                                 (
